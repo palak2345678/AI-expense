@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AuditAI – Autonomous AI-Powered Expense Audit & Fraud Detection Platform for real-time corporate compliance and anomaly detection.">
+  <title>AuditAI – AI Expense Audit & Fraud Detection Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons via CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Global Cold-start / API Loading Bar -->
+  <div id="global-loader"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="landing-nav">
+    <a href="index.html" class="brand-logo">
+      <div class="brand-icon-box">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <span>Audit<span class="text-gradient">AI</span></span>
+      <span class="brand-badge">v1.0</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#rules">Fraud Engine</a></li>
+      <li><a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-gauge-high"></i> Open Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section with Glowing Accents -->
+  <section class="hero-section">
+    <div class="hero-glow-blob hero-glow-1"></div>
+    <div class="hero-glow-blob hero-glow-2"></div>
+
+    <div class="hero-grid">
+      <!-- Left Column: Value Proposition -->
+      <div class="hero-content">
+        <div class="hero-badge-pill">
+          <i class="fa-solid fa-sparkles text-primary"></i>
+          <span>AI-Powered Autonomous Compliance</span>
+        </div>
+
+        <h1 class="hero-title">
+          Smart Expense Auditing & <span class="text-gradient">Fraud Detection</span> Platform
+        </h1>
+
+        <p class="hero-description">
+          Detect suspicious claims, duplicate receipts, after-hours filings, and budget outliers in real-time. Protect corporate treasury with transparent rule-based AI risk scoring.
+        </p>
+
+        <div class="hero-actions">
+          <a href="dashboard.html" class="btn btn-primary" id="btn-hero-launch">
+            <i class="fa-solid fa-rocket"></i>
+            Launch Live Dashboard
+          </a>
+          <a href="#features" class="btn btn-secondary">
+            <i class="fa-solid fa-circle-play"></i>
+            Explore Features
+          </a>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <h4 class="text-gradient" id="hero-stat-saved">$42,700+</h4>
+            <p>Losses Prevented</p>
+          </div>
+          <div class="hero-stat-item">
+            <h4><span class="text-primary">100%</span> Instant</h4>
+            <p>Real-Time Audit Latency</p>
+          </div>
+          <div class="hero-stat-item">
+            <h4>5-Layer</h4>
+            <p>Fraud Heuristic Rules</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Glass Card Simulation -->
+      <div class="hero-preview-container">
+        <div class="glass-panel hero-preview-card">
+          <div class="preview-header">
+            <div class="preview-status">
+              <span class="pulse-dot"></span>
+              <span>Live Engine Telemetry</span>
+            </div>
+            <span class="risk-badge badge-high"><i class="fa-solid fa-triangle-exclamation"></i> High Risk Flagged</span>
+          </div>
+
+          <div class="preview-simulation">
+            <div class="preview-row">
+              <div>
+                <strong>Executive Workstation Claim</strong>
+                <small class="text-muted block">Marcus Vance (Executive)</small>
+              </div>
+              <div class="text-right">
+                <span class="font-mono font-semibold text-danger">$14,500.00</span>
+                <small class="text-muted block">Score 85/100</small>
+              </div>
+            </div>
+
+            <div class="preview-row">
+              <div>
+                <strong>Duplicate Client Dinner</strong>
+                <small class="text-muted block">Alex Rivera (Sales)</small>
+              </div>
+              <div class="text-right">
+                <span class="font-mono font-semibold text-warning">$3,200.00</span>
+                <small class="text-muted block">Score 50/100</small>
+              </div>
+            </div>
+
+            <div class="preview-row">
+              <div>
+                <strong>Team Cloud Subscriptions</strong>
+                <small class="text-muted block">Sarah Jenkins (Engineering)</small>
+              </div>
+              <div class="text-right">
+                <span class="font-mono font-semibold text-success">$180.00</span>
+                <small class="text-muted block">Score 0/100</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-color" style="border-top: 1px solid var(--border-color); padding-top: 14px; text-align: center;">
+            <a href="dashboard.html" class="btn btn-secondary btn-sm w-full" style="width: 100%;">
+              <i class="fa-solid fa-arrow-right"></i> Inspect All 40+ Audited Records
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section id="features" class="section-wrapper reveal">
+    <div class="section-header">
+      <div class="section-tag">Capabilities</div>
+      <h2 class="section-title">Built for Modern Expense Integrity</h2>
+      <p class="section-sub">Combining deterministic corporate governance rules with heuristic anomaly scoring.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="glass-panel feature-card">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-microchip"></i>
+        </div>
+        <h3>Real-Time Risk Engine</h3>
+        <p>Calculates dynamic risk scores from 0 to 100 instantly upon expense creation, returning clear policy rationale.</p>
+      </div>
+
+      <div class="glass-panel feature-card">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-copy"></i>
+        </div>
+        <h3>Duplicate Detection</h3>
+        <p>Flags identical employee claims submitted across departments or dates, preventing double reimbursements.</p>
+      </div>
+
+      <div class="glass-panel feature-card">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+        <h3>Temporal Anomaly Tracking</h3>
+        <p>Identifies suspicious claims filed on weekends or late nights between 11 PM and 5 AM outside normal business hours.</p>
+      </div>
+
+      <div class="glass-panel feature-card">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+        <h3>Category Outlier Analysis</h3>
+        <p>Automatically compares transactions against historical averages, highlighting expenses exceeding 3x the category mean.</p>
+      </div>
+
+      <div class="glass-panel feature-card">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-coins"></i>
+        </div>
+        <h3>Round-Number Auditing</h3>
+        <p>Detects unitemized estimates and round figures (e.g., $5,000 flat) lacking supporting line-item receipts.</p>
+      </div>
+
+      <div class="glass-panel feature-card">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-sliders"></i>
+        </div>
+        <h3>One-Click Governance</h3>
+        <p>Finance controllers can immediately approve or reject flagged items with dynamic state synchronization.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="section-wrapper reveal">
+    <div class="section-header">
+      <div class="section-tag">Workflow</div>
+      <h2 class="section-title">How AuditAI Protects Budgets</h2>
+      <p class="section-sub">From submission to compliance audit in sub-second execution.</p>
+    </div>
+
+    <div class="workflow-steps">
+      <div class="glass-panel step-card">
+        <div class="step-number">1</div>
+        <h4>Expense Ingestion</h4>
+        <p>Employee submits expense details including category, amount, timestamp, and receipts.</p>
+      </div>
+
+      <div class="glass-panel step-card">
+        <div class="step-number">2</div>
+        <h4>Heuristic AI Evaluation</h4>
+        <p>Backend risk engine cross-references historical averages, duplicate records, and policy thresholds.</p>
+      </div>
+
+      <div class="glass-panel step-card">
+        <div class="step-number">3</div>
+        <h4>Dynamic Scoring</h4>
+        <p>Risk gauge calculates 0-100 score, assigning Low, Medium, or High risk level with itemized reasons.</p>
+      </div>
+
+      <div class="glass-panel step-card">
+        <div class="step-number">4</div>
+        <h4>Resolution & Reporting</h4>
+        <p>Auditors review live alerts, approve clean items, or reject fraudulent claims with immediate audit trails.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules Breakdown Section -->
+  <section id="rules" class="section-wrapper reveal">
+    <div class="section-header">
+      <div class="section-tag">Heuristics</div>
+      <h2 class="section-title">Transparent AI Decision Matrix</h2>
+      <p class="section-sub">Every point added by the risk engine corresponds to an auditable corporate rule.</p>
+    </div>
+
+    <div class="rules-grid">
+      <div class="glass-panel rule-item">
+        <div class="rule-header">
+          <strong>Threshold Exceeded</strong>
+          <span class="rule-points">+50 Points</span>
+        </div>
+        <p class="text-muted text-sm">Any expense exceeding the $10,000 corporate ceiling automatically flags for executive review.</p>
+      </div>
+
+      <div class="glass-panel rule-item">
+        <div class="rule-header">
+          <strong>Duplicate Submission</strong>
+          <span class="rule-points">+30 Points</span>
+        </div>
+        <p class="text-muted text-sm">Exact match on employee name, category, and monetary amount against previous filings.</p>
+      </div>
+
+      <div class="glass-panel rule-item">
+        <div class="rule-header">
+          <strong>Off-Hours Timing</strong>
+          <span class="rule-points">+20 Points</span>
+        </div>
+        <p class="text-muted text-sm">Submissions filed on a Saturday or Sunday, or between 11 PM and 5 AM overnight.</p>
+      </div>
+
+      <div class="glass-panel rule-item">
+        <div class="rule-header">
+          <strong>Category Outlier</strong>
+          <span class="rule-points">+25 Points</span>
+        </div>
+        <p class="text-muted text-sm">Monetary amount exceeding 300% (3x) of the historical category baseline.</p>
+      </div>
+
+      <div class="glass-panel rule-item">
+        <div class="rule-header">
+          <strong>Unitemized Round Number</strong>
+          <span class="rule-points">+10 Points</span>
+        </div>
+        <p class="text-muted text-sm">Suspicious flat integer amounts (e.g. $5,000, $2,500) without cent breakdowns.</p>
+      </div>
+    </div>
+
+    <!-- Call to action card -->
+    <div class="landing-cta-banner">
+      <h3 class="text-2xl font-bold mb-3">Ready to explore the live system?</h3>
+      <p class="text-muted max-w-md mx-auto mb-6" style="margin-bottom: 20px;">
+        Test the live expense audit form, filter 40+ pre-seeded records, and watch real-time fraud alerts in action.
+      </p>
+      <a href="dashboard.html" class="btn btn-primary">
+        <i class="fa-solid fa-gauge"></i> Open Auditor Dashboard
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <p>AuditAI – AI Expense Audit & Fraud Detection Platform &bull; College Capstone Project</p>
+    <div class="footer-badges">
+      <span class="tech-tag"><i class="fa-brands fa-node-js"></i> Node.js & Express</span>
+      <span class="tech-tag"><i class="fa-brands fa-js"></i> Vanilla JavaScript</span>
+      <span class="tech-tag"><i class="fa-solid fa-chart-line"></i> Chart.js</span>
+      <span class="tech-tag"><i class="fa-solid fa-cloud"></i> Vercel & Render</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

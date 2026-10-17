@@ -1,0 +1,752 @@
+[
+  {
+    "id": "EXP-1043",
+    "employee": "Marcus Vance",
+    "department": "Executive",
+    "category": "Equipment",
+    "amount": 16500,
+    "description": "Executive portable workstation setup & audio monitors",
+    "date": "2026-10-18",
+    "time": "23:45",
+    "status": "flagged",
+    "riskScore": 100,
+    "riskLevel": "High",
+    "reasons": [
+      "High transaction amount ($16,500) exceeds the $10,000 corporate review threshold (+50)",
+      "Irregular submission timing: filed on a weekend during non-business hours (11 PM - 5 AM) (+20)",
+      "Suspicious round-number amount ($16,500) without itemized breakdown (+10)",
+      "Amount ($16,500) is more than 3x the Equipment historical average ($3,968) (+25)"
+    ],
+    "createdAt": "2026-10-16T14:51:11.046Z"
+  },
+  {
+    "id": "EXP-1042",
+    "employee": "Test Auditor",
+    "department": "Engineering",
+    "category": "Meals & Entertainment",
+    "amount": 250,
+    "description": "Team lunch test submission",
+    "date": "2026-10-16",
+    "time": "13:00",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-10-16T14:51:01.417Z"
+  },
+  {
+    "id": "EXP-1017",
+    "employee": "Sarah Jenkins",
+    "department": "Engineering",
+    "category": "Software & IT",
+    "amount": 180,
+    "description": "Monthly AWS cloud sandbox test environments",
+    "date": "2026-10-14",
+    "time": "10:15",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-10-14T10:15:00.000Z"
+  },
+  {
+    "id": "EXP-1018",
+    "employee": "Emily Watson",
+    "department": "Operations",
+    "category": "Office Supplies",
+    "amount": 85,
+    "description": "Shipping labels, printer cartridges & packaging tape",
+    "date": "2026-10-13",
+    "time": "14:20",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-10-13T14:20:00.000Z"
+  },
+  {
+    "id": "EXP-1001",
+    "employee": "Marcus Vance",
+    "department": "Executive",
+    "category": "Equipment",
+    "amount": 14500,
+    "description": "Executive high-end workstation & dual OLED monitors",
+    "date": "2026-10-12",
+    "time": "23:45",
+    "status": "flagged",
+    "riskScore": 80,
+    "riskLevel": "High",
+    "reasons": [
+      "High transaction amount ($14,500) exceeds the $10,000 corporate review threshold (+50)",
+      "Irregular submission timing: filed on a late night submission (11 PM - 5 AM) (+20)",
+      "Suspicious round-number amount ($14,500) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-10-12T23:45:00.000Z"
+  },
+  {
+    "id": "EXP-1003",
+    "employee": "Alex Rivera",
+    "department": "Sales",
+    "category": "Meals & Entertainment",
+    "amount": 3200,
+    "description": "Duplicate VIP Client Dinner & Lounge booking",
+    "date": "2026-10-11",
+    "time": "14:15",
+    "status": "rejected",
+    "riskScore": 60,
+    "riskLevel": "High",
+    "reasons": [
+      "Duplicate expense detected: exact match on employee, category, and amount ($3,200) (+30)",
+      "Irregular submission timing: filed on a weekend submission (+20)",
+      "Suspicious round-number amount ($3,200) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-10-11T14:15:00.000Z"
+  },
+  {
+    "id": "EXP-1002",
+    "employee": "Alex Rivera",
+    "department": "Sales",
+    "category": "Meals & Entertainment",
+    "amount": 3200,
+    "description": "VIP Client Dinner & Lounge reservation",
+    "date": "2026-10-10",
+    "time": "01:30",
+    "status": "flagged",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend during non-business hours (11 PM - 5 AM) (+20)",
+      "Suspicious round-number amount ($3,200) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-10-10T01:30:00.000Z"
+  },
+  {
+    "id": "EXP-1019",
+    "employee": "Alex Rivera",
+    "department": "Sales",
+    "category": "Travel",
+    "amount": 450,
+    "description": "Domestic flight - SFO to SEA for quarterly client pitch",
+    "date": "2026-10-09",
+    "time": "09:30",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-10-09T09:30:00.000Z"
+  },
+  {
+    "id": "EXP-1020",
+    "employee": "Sophia Martinez",
+    "department": "Marketing",
+    "category": "Meals & Entertainment",
+    "amount": 125,
+    "description": "Coffee and breakfast meeting with creative agency",
+    "date": "2026-10-07",
+    "time": "08:45",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-10-07T08:45:00.000Z"
+  },
+  {
+    "id": "EXP-1004",
+    "employee": "David Chen",
+    "department": "Engineering",
+    "category": "Consulting",
+    "amount": 12000,
+    "description": "Quarterly architectural security audit retainer",
+    "date": "2026-10-04",
+    "time": "02:10",
+    "status": "flagged",
+    "riskScore": 80,
+    "riskLevel": "High",
+    "reasons": [
+      "High transaction amount ($12,000) exceeds the $10,000 corporate review threshold (+50)",
+      "Irregular submission timing: filed on a weekend during non-business hours (11 PM - 5 AM) (+20)",
+      "Suspicious round-number amount ($12,000) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-10-04T02:10:00.000Z"
+  },
+  {
+    "id": "EXP-1021",
+    "employee": "David Chen",
+    "department": "Engineering",
+    "category": "Software & IT",
+    "amount": 340,
+    "description": "Datadog monitoring & APM developer seat subscription",
+    "date": "2026-10-02",
+    "time": "11:10",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-10-02T11:10:00.000Z"
+  },
+  {
+    "id": "EXP-1005",
+    "employee": "Sophia Martinez",
+    "department": "Marketing",
+    "category": "Travel",
+    "amount": 11200,
+    "description": "First class transatlantic flights to Global Summit",
+    "date": "2026-09-28",
+    "time": "16:20",
+    "status": "flagged",
+    "riskScore": 60,
+    "riskLevel": "High",
+    "reasons": [
+      "High transaction amount ($11,200) exceeds the $10,000 corporate review threshold (+50)",
+      "Suspicious round-number amount ($11,200) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-09-28T16:20:00.000Z"
+  },
+  {
+    "id": "EXP-1006",
+    "employee": "Jordan Reed",
+    "department": "Sales",
+    "category": "Meals & Entertainment",
+    "amount": 5000,
+    "description": "Unitemized enterprise client banquet",
+    "date": "2026-09-27",
+    "time": "23:15",
+    "status": "flagged",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend during non-business hours (11 PM - 5 AM) (+20)",
+      "Suspicious round-number amount ($5,000) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-09-27T23:15:00.000Z"
+  },
+  {
+    "id": "EXP-1022",
+    "employee": "Chloe Bennet",
+    "department": "Human Resources",
+    "category": "Meals & Entertainment",
+    "amount": 220,
+    "description": "New hire welcome team lunch",
+    "date": "2026-09-24",
+    "time": "12:30",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-09-24T12:30:00.000Z"
+  },
+  {
+    "id": "EXP-1023",
+    "employee": "Liam Davis",
+    "department": "Finance",
+    "category": "Office Supplies",
+    "amount": 65,
+    "description": "Desk organizers & ergonomic mouse pads",
+    "date": "2026-09-22",
+    "time": "15:10",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-09-22T15:10:00.000Z"
+  },
+  {
+    "id": "EXP-1009",
+    "employee": "Nathan Drake",
+    "department": "Marketing",
+    "category": "Meals & Entertainment",
+    "amount": 2500,
+    "description": "Product launch celebration dinner for 12 partners",
+    "date": "2026-09-19",
+    "time": "22:15",
+    "status": "pending",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)",
+      "Suspicious round-number amount ($2,500) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-09-19T22:15:00.000Z"
+  },
+  {
+    "id": "EXP-1024",
+    "employee": "Nathan Drake",
+    "department": "Marketing",
+    "category": "Travel",
+    "amount": 380,
+    "description": "High-speed rail ticket to Regional Expo",
+    "date": "2026-09-18",
+    "time": "08:20",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-09-18T08:20:00.000Z"
+  },
+  {
+    "id": "EXP-1007",
+    "employee": "Liam Davis",
+    "department": "Finance",
+    "category": "Software & IT",
+    "amount": 10500,
+    "description": "Annual Enterprise Analytics Platform license renewal",
+    "date": "2026-09-15",
+    "time": "11:00",
+    "status": "approved",
+    "riskScore": 60,
+    "riskLevel": "High",
+    "reasons": [
+      "High transaction amount ($10,500) exceeds the $10,000 corporate review threshold (+50)",
+      "Suspicious round-number amount ($10,500) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-09-15T11:00:00.000Z"
+  },
+  {
+    "id": "EXP-1025",
+    "employee": "Jessica Taylor",
+    "department": "Marketing",
+    "category": "Equipment",
+    "amount": 650,
+    "description": "Podcast microphone & portable lighting kit for PR",
+    "date": "2026-09-11",
+    "time": "13:40",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-09-11T13:40:00.000Z"
+  },
+  {
+    "id": "EXP-1008",
+    "employee": "Emily Watson",
+    "department": "Operations",
+    "category": "Equipment",
+    "amount": 4000,
+    "description": "Unitemized warehouse barcode scanners bulk order",
+    "date": "2026-09-06",
+    "time": "00:40",
+    "status": "flagged",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend during non-business hours (11 PM - 5 AM) (+20)",
+      "Suspicious round-number amount ($4,000) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-09-06T00:40:00.000Z"
+  },
+  {
+    "id": "EXP-1026",
+    "employee": "Sarah Jenkins",
+    "department": "Engineering",
+    "category": "Meals & Entertainment",
+    "amount": 95,
+    "description": "Engineering sprint retrospective pizza and snacks",
+    "date": "2026-09-04",
+    "time": "17:30",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-09-04T17:30:00.000Z"
+  },
+  {
+    "id": "EXP-1027",
+    "employee": "Michael Scott",
+    "department": "Sales",
+    "category": "Travel",
+    "amount": 285,
+    "description": "Rental car and fuel for regional distributor visits",
+    "date": "2026-08-27",
+    "time": "16:00",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-08-27T16:00:00.000Z"
+  },
+  {
+    "id": "EXP-1010",
+    "employee": "Sarah Jenkins",
+    "department": "Engineering",
+    "category": "Software & IT",
+    "amount": 3000,
+    "description": "Team JetBrains & GitHub Copilot Enterprise seats",
+    "date": "2026-08-25",
+    "time": "15:40",
+    "status": "approved",
+    "riskScore": 10,
+    "riskLevel": "Low",
+    "reasons": [
+      "Suspicious round-number amount ($3,000) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-08-25T15:40:00.000Z"
+  },
+  {
+    "id": "EXP-1028",
+    "employee": "Robert Taylor",
+    "department": "Finance",
+    "category": "Software & IT",
+    "amount": 150,
+    "description": "QuickBooks Online extra seat & payroll addon",
+    "date": "2026-08-22",
+    "time": "10:00",
+    "status": "approved",
+    "riskScore": 20,
+    "riskLevel": "Low",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)"
+    ],
+    "createdAt": "2026-08-22T10:00:00.000Z"
+  },
+  {
+    "id": "EXP-1011",
+    "employee": "Chloe Bennet",
+    "department": "Human Resources",
+    "category": "Consulting",
+    "amount": 4500,
+    "description": "Executive recruiting firm candidate search retainer",
+    "date": "2026-08-20",
+    "time": "11:25",
+    "status": "approved",
+    "riskScore": 10,
+    "riskLevel": "Low",
+    "reasons": [
+      "Suspicious round-number amount ($4,500) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-08-20T11:25:00.000Z"
+  },
+  {
+    "id": "EXP-1012",
+    "employee": "Alex Rivera",
+    "department": "Sales",
+    "category": "Travel",
+    "amount": 2000,
+    "description": "Regional sales roadshow hotel suite accommodation",
+    "date": "2026-08-16",
+    "time": "13:00",
+    "status": "approved",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)",
+      "Suspicious round-number amount ($2,000) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-08-16T13:00:00.000Z"
+  },
+  {
+    "id": "EXP-1029",
+    "employee": "Emily Watson",
+    "department": "Operations",
+    "category": "Travel",
+    "amount": 520,
+    "description": "Hotel stay (2 nights) for annual supply chain workshop",
+    "date": "2026-08-14",
+    "time": "19:15",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-08-14T19:15:00.000Z"
+  },
+  {
+    "id": "EXP-1013",
+    "employee": "Michael Scott",
+    "department": "Sales",
+    "category": "Office Supplies",
+    "amount": 1800,
+    "description": "Bulk specialty paper & ergonomic executive chairs",
+    "date": "2026-08-08",
+    "time": "10:30",
+    "status": "rejected",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)",
+      "Suspicious round-number amount ($1,800) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-08-08T10:30:00.000Z"
+  },
+  {
+    "id": "EXP-1030",
+    "employee": "Chloe Bennet",
+    "department": "Human Resources",
+    "category": "Equipment",
+    "amount": 310,
+    "description": "Ergonomic standing desk converter for onboarding pod",
+    "date": "2026-08-04",
+    "time": "11:45",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-08-04T11:45:00.000Z"
+  },
+  {
+    "id": "EXP-1014",
+    "employee": "Robert Taylor",
+    "department": "Finance",
+    "category": "Consulting",
+    "amount": 5000,
+    "description": "Mid-year tax advisory & compliance consulting",
+    "date": "2026-07-29",
+    "time": "14:00",
+    "status": "approved",
+    "riskScore": 10,
+    "riskLevel": "Low",
+    "reasons": [
+      "Suspicious round-number amount ($5,000) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-07-29T14:00:00.000Z"
+  },
+  {
+    "id": "EXP-1031",
+    "employee": "David Chen",
+    "department": "Engineering",
+    "category": "Office Supplies",
+    "amount": 45,
+    "description": "Whiteboard markers, sticky notes & team supplies",
+    "date": "2026-07-25",
+    "time": "14:15",
+    "status": "approved",
+    "riskScore": 20,
+    "riskLevel": "Low",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)"
+    ],
+    "createdAt": "2026-07-25T14:15:00.000Z"
+  },
+  {
+    "id": "EXP-1032",
+    "employee": "Alex Rivera",
+    "department": "Sales",
+    "category": "Meals & Entertainment",
+    "amount": 140,
+    "description": "Client business lunch at bistrot",
+    "date": "2026-07-21",
+    "time": "13:00",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-07-21T13:00:00.000Z"
+  },
+  {
+    "id": "EXP-1015",
+    "employee": "Jessica Taylor",
+    "department": "Marketing",
+    "category": "Meals & Entertainment",
+    "amount": 1500,
+    "description": "Media influencer dinner & sponsorship kickoff",
+    "date": "2026-07-18",
+    "time": "21:30",
+    "status": "pending",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)",
+      "Suspicious round-number amount ($1,500) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-07-18T21:30:00.000Z"
+  },
+  {
+    "id": "EXP-1033",
+    "employee": "Sophia Martinez",
+    "department": "Marketing",
+    "category": "Software & IT",
+    "amount": 420,
+    "description": "Figma Organization seat and Canva Pro team licenses",
+    "date": "2026-07-15",
+    "time": "09:50",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-07-15T09:50:00.000Z"
+  },
+  {
+    "id": "EXP-1016",
+    "employee": "David Chen",
+    "department": "Engineering",
+    "category": "Equipment",
+    "amount": 3500,
+    "description": "Specialized lab test server rack components",
+    "date": "2026-07-12",
+    "time": "16:45",
+    "status": "approved",
+    "riskScore": 30,
+    "riskLevel": "Medium",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)",
+      "Suspicious round-number amount ($3,500) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-07-12T16:45:00.000Z"
+  },
+  {
+    "id": "EXP-1034",
+    "employee": "Jordan Reed",
+    "department": "Sales",
+    "category": "Travel",
+    "amount": 320,
+    "description": "Interstate airport parking and toll reimbursement",
+    "date": "2026-07-08",
+    "time": "18:20",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-07-08T18:20:00.000Z"
+  },
+  {
+    "id": "EXP-1035",
+    "employee": "Marcus Vance",
+    "department": "Executive",
+    "category": "Meals & Entertainment",
+    "amount": 350,
+    "description": "Board meeting catering & refreshments",
+    "date": "2026-06-29",
+    "time": "12:15",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-06-29T12:15:00.000Z"
+  },
+  {
+    "id": "EXP-1036",
+    "employee": "Jessica Taylor",
+    "department": "Marketing",
+    "category": "Office Supplies",
+    "amount": 90,
+    "description": "Conference badge lanyards & printed flyers",
+    "date": "2026-06-22",
+    "time": "16:10",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-06-22T16:10:00.000Z"
+  },
+  {
+    "id": "EXP-1037",
+    "employee": "Nathan Drake",
+    "department": "Marketing",
+    "category": "Software & IT",
+    "amount": 290,
+    "description": "Mailchimp transactional email credits",
+    "date": "2026-06-15",
+    "time": "10:30",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-06-15T10:30:00.000Z"
+  },
+  {
+    "id": "EXP-1038",
+    "employee": "Sarah Jenkins",
+    "department": "Engineering",
+    "category": "Equipment",
+    "amount": 850,
+    "description": "Ultra-wide 4K monitor for code reviews",
+    "date": "2026-06-08",
+    "time": "14:00",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-06-08T14:00:00.000Z"
+  },
+  {
+    "id": "EXP-1039",
+    "employee": "Liam Davis",
+    "department": "Finance",
+    "category": "Consulting",
+    "amount": 1200,
+    "description": "Statutory balance sheet review & auditing assist",
+    "date": "2026-05-28",
+    "time": "15:20",
+    "status": "approved",
+    "riskScore": 10,
+    "riskLevel": "Low",
+    "reasons": [
+      "Suspicious round-number amount ($1,200) without itemized breakdown (+10)"
+    ],
+    "createdAt": "2026-05-28T15:20:00.000Z"
+  },
+  {
+    "id": "EXP-1040",
+    "employee": "Emily Watson",
+    "department": "Operations",
+    "category": "Office Supplies",
+    "amount": 110,
+    "description": "First aid restocking and pantry sanitation kits",
+    "date": "2026-05-18",
+    "time": "11:00",
+    "status": "approved",
+    "riskScore": 0,
+    "riskLevel": "Low",
+    "reasons": [
+      "Verified: Transaction is within standard corporate policy thresholds."
+    ],
+    "createdAt": "2026-05-18T11:00:00.000Z"
+  },
+  {
+    "id": "EXP-1041",
+    "employee": "Robert Taylor",
+    "department": "Finance",
+    "category": "Travel",
+    "amount": 640,
+    "description": "Roundtrip flights to annual FinOps convention",
+    "date": "2026-05-10",
+    "time": "08:15",
+    "status": "approved",
+    "riskScore": 20,
+    "riskLevel": "Low",
+    "reasons": [
+      "Irregular submission timing: filed on a weekend submission (+20)"
+    ],
+    "createdAt": "2026-05-10T08:15:00.000Z"
+  }
+]

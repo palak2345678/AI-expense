@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AuditAI Dashboard – Real-time Expense Auditing, Anomaly Analysis, and Risk Governance Platform.">
+  <title>Dashboard – AuditAI Expense & Fraud Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading Bar Indicator -->
+  <div id="global-loader"></div>
+
+  <!-- Mobile Overlay for Sidebar -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="dashboard-container">
+
+    <!-- Collapsible Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon-box">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <span>Audit<span class="text-gradient">AI</span></span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#overview" class="sidebar-link active">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Overview</span>
+        </a>
+        <a href="#audit-form-section" class="sidebar-link">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>Expense Audit</span>
+        </a>
+        <a href="#analytics-section" class="sidebar-link">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Analytics</span>
+        </a>
+        <a href="#alerts-section" class="sidebar-link">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span>Fraud Alerts</span>
+        </a>
+        <a href="#transactions-section" class="sidebar-link">
+          <i class="fa-solid fa-table-list"></i>
+          <span>Transactions</span>
+        </a>
+        <a href="index.html" class="sidebar-link">
+          <i class="fa-solid fa-house"></i>
+          <span>Landing Page</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div id="backend-status" class="status-pill">
+          <span class="status-dot online"></span>
+          <span>Connecting...</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+
+      <!-- Top Navigation Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebar-toggle" class="toggle-sidebar-btn" title="Toggle Sidebar">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="topbar-search" placeholder="Search transactions, employees, IDs...">
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button id="btn-refresh-data" class="btn btn-secondary btn-sm" title="Refresh Live Data">
+            <i class="fa-solid fa-rotate"></i>
+            <span>Refresh</span>
+          </button>
+
+          <a href="#audit-form-section" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-plus"></i>
+            <span>New Audit</span>
+          </a>
+
+          <div class="user-profile-badge">
+            <div class="avatar">AI</div>
+            <div class="profile-info text-sm hidden-sm" style="font-size: 0.85rem;">
+              <strong class="block">Lead Auditor</strong>
+              <small class="text-muted">Compliance Dept</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Body -->
+      <main class="dashboard-content">
+
+        <!-- Section 1: KPI Stat Cards -->
+        <section id="overview" class="stats-grid">
+          <!-- Total Claims -->
+          <div class="glass-panel stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Total Audited</span>
+              <div class="stat-icon icon-blue"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            </div>
+            <div class="stat-value" id="stat-total-count">0</div>
+            <div class="stat-sub">Audited claims in system</div>
+          </div>
+
+          <!-- Total Value -->
+          <div class="glass-panel stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Audited Volume</span>
+              <div class="stat-icon icon-green"><i class="fa-solid fa-money-bill-wave"></i></div>
+            </div>
+            <div class="stat-value text-gradient" id="stat-total-amount">$0</div>
+            <div class="stat-sub">Cumulative claims value</div>
+          </div>
+
+          <!-- Flagged High Risk -->
+          <div class="glass-panel stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Flagged / At-Risk</span>
+              <div class="stat-icon icon-rose"><i class="fa-solid fa-shield-halved"></i></div>
+            </div>
+            <div class="stat-value text-danger" id="stat-flagged-count">0</div>
+            <div class="stat-sub">Requiring auditor review</div>
+          </div>
+
+          <!-- Fraud Losses Prevented -->
+          <div class="glass-panel stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Money Saved</span>
+              <div class="stat-icon icon-amber"><i class="fa-solid fa-piggy-bank"></i></div>
+            </div>
+            <div class="stat-value text-success" id="stat-money-saved">$0</div>
+            <div class="stat-sub">Recovered & stopped leaks</div>
+          </div>
+        </section>
+
+        <!-- Average Risk Indicator Card -->
+        <div class="glass-panel p-4" style="padding: 16px 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div class="brand-icon-box" style="width: 34px; height: 34px;">
+              <i class="fa-solid fa-brain" style="font-size: 0.95rem;"></i>
+            </div>
+            <div>
+              <strong style="font-size: 0.95rem;">System-Wide Fraud Index</strong>
+              <p class="text-muted text-xs" style="font-size: 0.8rem;">Aggregated heuristic score across all employee submissions</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px; min-width: 260px;">
+            <div style="flex: 1;">
+              <div class="progress-bar-bg" style="margin-top: 0; height: 8px;">
+                <div id="stat-risk-progress" class="progress-bar-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+            <strong id="stat-avg-risk" class="font-mono" style="font-size: 1.15rem; color: #fff;">0.0/100</strong>
+          </div>
+        </div>
+
+        <!-- Section 2: Real-Time Audit Form & Circular Gauge Result -->
+        <section id="audit-form-section" class="audit-section-grid">
+          <!-- Audit Form -->
+          <div class="glass-panel audit-form-card">
+            <div class="form-header-badge">
+              <i class="fa-solid fa-microchip"></i>
+              <span>Heuristic Risk Analyzer</span>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 6px;">Submit Expense for AI Audit</h3>
+            <p class="text-muted text-sm mb-4" style="margin-bottom: 16px; font-size: 0.88rem;">
+              Submit a new claim to run the 5-layer fraud detection engine in real-time.
+            </p>
+
+            <!-- Quick Presets -->
+            <div class="presets-bar">
+              <span class="text-xs text-muted" style="font-size: 0.78rem; display: flex; align-items: center;">Quick Test:</span>
+              <button class="btn-preset" data-preset="clean">
+                <i class="fa-solid fa-check text-success"></i> Low-Risk ($145)
+              </button>
+              <button class="btn-preset" data-preset="duplicate">
+                <i class="fa-solid fa-clone text-warning"></i> Duplicate Claim
+              </button>
+              <button class="btn-preset" data-preset="highval">
+                <i class="fa-solid fa-dollar-sign text-danger"></i> High-Value ($16.5k)
+              </button>
+              <button class="btn-preset" data-preset="oddtime">
+                <i class="fa-solid fa-moon text-amber"></i> Off-Hours (2 AM)
+              </button>
+            </div>
+
+            <form id="expense-audit-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="audit-employee">Employee Name *</label>
+                  <input type="text" id="audit-employee" class="form-control" placeholder="e.g. Alex Rivera" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="audit-department">Department *</label>
+                  <select id="audit-department" class="form-control" required>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Executive">Executive</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Human Resources">Human Resources</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="audit-category">Expense Category *</label>
+                  <select id="audit-category" class="form-control" required>
+                    <option value="Meals & Entertainment">Meals & Entertainment</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Equipment">Equipment</option>
+                    <option value="Software & IT">Software & IT</option>
+                    <option value="Office Supplies">Office Supplies</option>
+                    <option value="Consulting">Consulting</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="audit-amount">Amount (USD $) *</label>
+                  <input type="number" id="audit-amount" class="form-control" step="0.01" min="0.01" placeholder="e.g. 3200.00" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="audit-date">Expense Date *</label>
+                  <input type="date" id="audit-date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="audit-time">Submission Time *</label>
+                  <input type="time" id="audit-time" class="form-control" required>
+                </div>
+
+                <div class="form-group col-span-2">
+                  <label for="audit-description">Description & Business Justification *</label>
+                  <textarea id="audit-description" class="form-control" rows="2" placeholder="e.g. VIP client business dinner at downtown restaurant..." required></textarea>
+                </div>
+
+                <div class="form-group col-span-2" style="display: flex; gap: 16px; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 10px 14px; border-radius: 8px;">
+                  <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 0; white-space: nowrap;">
+                    <input type="checkbox" id="audit-has-receipt" checked style="accent-color: #3b82f6; width: 16px; height: 16px;">
+                    <span style="font-size: 0.85rem;"><i class="fa-solid fa-receipt text-primary"></i> Receipt Attached</span>
+                  </label>
+                  <input type="text" id="audit-receipt-hash" class="form-control" style="flex: 1; font-size: 0.82rem;" placeholder="Optional receipt reference / hash (e.g. RCPT-40918)">
+                </div>
+              </div>
+
+              <div class="mt-4" style="margin-top: 18px;">
+                <button type="submit" id="btn-submit-audit" class="btn btn-primary" style="width: 100%;">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <span>Run AI Fraud Audit</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Circular Risk Gauge Result Panel -->
+          <div class="glass-panel audit-result-panel">
+            <div id="audit-empty-state">
+              <div class="brand-icon-box" style="margin: 0 auto 16px; width: 56px; height: 56px;">
+                <i class="fa-solid fa-gauge-simple-high" style="font-size: 1.4rem;"></i>
+              </div>
+              <h4 style="font-size: 1.15rem; margin-bottom: 8px;">Awaiting Audit Submission</h4>
+              <p class="text-muted text-sm" style="max-width: 280px; margin: 0 auto;">
+                Submit an expense or click any quick preset on the left to see the circular AI risk gauge in action.
+              </p>
+            </div>
+
+            <div id="audit-result-card" style="display: none; width: 100%;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span id="result-status-pill" class="status-badge status-flagged">FLAGGED</span>
+                <span id="gauge-level-badge" class="risk-badge badge-high">High Risk</span>
+              </div>
+
+              <!-- Animated SVG Circular Gauge -->
+              <div class="gauge-wrapper" style="margin: 6px auto 12px;">
+                <svg class="gauge-svg" viewBox="0 0 120 120">
+                  <circle class="gauge-bg" cx="60" cy="60" r="54"></circle>
+                  <circle id="gauge-progress" class="gauge-circle" cx="60" cy="60" r="54"></circle>
+                </svg>
+                <div class="gauge-inner-text">
+                  <div class="gauge-score" id="gauge-score-value">0</div>
+                  <div class="gauge-label">Fraud Score</div>
+                </div>
+              </div>
+
+              <div id="result-summary-text" class="text-sm"></div>
+
+              <!-- Itemized Rule Reasons -->
+              <div class="result-reasons-container">
+                <span class="text-xs text-muted font-semibold uppercase" style="letter-spacing: 0.5px;">Detected Rule Violations:</span>
+                <ul id="result-reasons-list" class="reasons-list"></ul>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="display: flex; gap: 10px; margin-top: 18px;">
+                <button id="btn-result-reject" class="btn btn-outline-danger btn-sm" style="flex: 1;">
+                  <i class="fa-solid fa-ban"></i> Reject Claim
+                </button>
+                <button id="btn-result-approve" class="btn btn-outline-success btn-sm" style="flex: 1;">
+                  <i class="fa-solid fa-check"></i> Approve Claim
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Visual Analytics Charts -->
+        <section id="analytics-section" class="charts-grid">
+          <!-- Monthly Trend Line Chart -->
+          <div class="glass-panel chart-card">
+            <div class="chart-header">
+              <div>
+                <h3 style="font-size: 1.1rem;">Expense Trajectory vs Flagged Losses</h3>
+                <small class="text-muted">6-month trendline of corporate expenditure vs fraud risk</small>
+              </div>
+              <span class="category-pill"><i class="fa-solid fa-chart-line"></i> Chart.js</span>
+            </div>
+            <div class="chart-container-box">
+              <canvas id="monthlyExpensesChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Category Doughnut Chart -->
+          <div class="glass-panel chart-card">
+            <div class="chart-header">
+              <div>
+                <h3 style="font-size: 1.1rem;">Category Allocation</h3>
+                <small class="text-muted">Volume breakdown by expense category</small>
+              </div>
+              <span class="category-pill"><i class="fa-solid fa-chart-pie"></i> Doughnut</span>
+            </div>
+            <div class="chart-container-box">
+              <canvas id="categoryDoughnutChart"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bar Chart: Category Audit Volume vs AI Flags -->
+        <div class="glass-panel chart-card">
+          <div class="chart-header">
+            <div>
+              <h3 style="font-size: 1.1rem;">Category Anomaly Distribution</h3>
+              <small class="text-muted">Total claims submitted vs claims flagged by AI per category</small>
+            </div>
+            <span class="category-pill"><i class="fa-solid fa-chart-column"></i> Category Bar</span>
+          </div>
+          <div class="chart-container-box" style="min-height: 220px;">
+            <canvas id="categoryRiskBarChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Section 4: High-Risk Alerts Panel -->
+        <section id="alerts-section" class="glass-panel alerts-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span id="alerts-pulse-dot" class="pulse-dot"></span>
+              <h3 style="font-size: 1.15rem;">Live Fraud Alerts</h3>
+              <span id="alerts-count-badge" class="risk-badge badge-high">0</span>
+            </div>
+            <small class="text-muted">High-risk transactions flagged by autonomous engine</small>
+          </div>
+
+          <div id="alerts-container" class="alerts-list">
+            <div class="text-center py-6 text-muted">
+              <i class="fa-solid fa-spinner fa-spin"></i> Checking alerts...
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Transactions Table with Live Filters -->
+        <section id="transactions-section" class="glass-panel table-card">
+          <div class="table-toolbar">
+            <div>
+              <h3 style="font-size: 1.15rem;">Corporate Audited Transactions</h3>
+              <small class="text-muted" id="table-count-badge">Loading records...</small>
+            </div>
+
+            <div class="table-filters">
+              <!-- Filter by Category -->
+              <select id="filter-category" class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="Travel">Travel</option>
+                <option value="Meals & Entertainment">Meals & Entertainment</option>
+                <option value="Software & IT">Software & IT</option>
+                <option value="Equipment">Equipment</option>
+                <option value="Office Supplies">Office Supplies</option>
+                <option value="Consulting">Consulting</option>
+              </select>
+
+              <!-- Filter by Risk Level -->
+              <select id="filter-risk" class="filter-select">
+                <option value="all">All Risk Levels</option>
+                <option value="High">High Risk (60+)</option>
+                <option value="Medium">Medium Risk (30-59)</option>
+                <option value="Low">Low Risk (0-29)</option>
+              </select>
+
+              <!-- Search Input -->
+              <div class="filter-search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="table-search" placeholder="Search employee, ID, notes...">
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Employee</th>
+                  <th>Category</th>
+                  <th>Date & Time</th>
+                  <th class="text-right">Amount</th>
+                  <th>Risk Score</th>
+                  <th>Status</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="expenses-tbody">
+                <tr>
+                  <td colspan="8" class="text-center py-6 text-muted">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Fetching transactions...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts in dependency order -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/audit.js"></script>
+</body>
+</html>
