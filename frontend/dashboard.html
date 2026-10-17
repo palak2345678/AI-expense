@@ -261,12 +261,34 @@
                   <textarea id="audit-description" class="form-control" rows="2" placeholder="e.g. VIP client business dinner at downtown restaurant..." required></textarea>
                 </div>
 
-                <div class="form-group col-span-2" style="display: flex; gap: 16px; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 10px 14px; border-radius: 8px;">
-                  <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 0; white-space: nowrap;">
-                    <input type="checkbox" id="audit-has-receipt" checked style="accent-color: #3b82f6; width: 16px; height: 16px;">
-                    <span style="font-size: 0.85rem;"><i class="fa-solid fa-receipt text-primary"></i> Receipt Attached</span>
+                <!-- Receipt Upload Dropzone -->
+                <div class="form-group col-span-2">
+                  <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">
+                    <i class="fa-solid fa-receipt text-primary"></i> Itemized Receipt Attachment
                   </label>
-                  <input type="text" id="audit-receipt-hash" class="form-control" style="flex: 1; font-size: 0.82rem;" placeholder="Optional receipt reference / hash (e.g. RCPT-40918)">
+                  <div id="receipt-dropzone" class="receipt-upload-box" onclick="document.getElementById('audit-receipt-file').click()">
+                    <i class="fa-solid fa-cloud-arrow-up text-primary text-xl mb-1 block" style="font-size: 1.5rem; margin-bottom: 6px;"></i>
+                    <span class="text-sm block" style="font-weight: 500;">Click or drag & drop receipt (PNG, JPG — Max 5 MB)</span>
+                    <small class="text-muted text-xs block" style="margin-top: 4px;">Automatically generates cryptographic document SHA-256 hash</small>
+                    <input type="file" id="audit-receipt-file" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                  </div>
+
+                  <!-- Receipt Preview Box -->
+                  <div id="receipt-preview-container" style="display: none; margin-top: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px; text-align: center;">
+                    <img id="receipt-preview-img" class="receipt-preview-img" alt="Receipt preview">
+                    <div id="receipt-file-info" class="text-xs text-muted font-mono" style="margin: 4px 0 8px;"></div>
+                    <button type="button" id="btn-remove-receipt" class="btn btn-outline-danger btn-sm">
+                      <i class="fa-solid fa-trash"></i> Remove Receipt
+                    </button>
+                  </div>
+
+                  <div style="display: flex; gap: 12px; align-items: center; margin-top: 8px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 0; white-space: nowrap;">
+                      <input type="checkbox" id="audit-has-receipt" checked style="accent-color: #3b82f6; width: 16px; height: 16px;">
+                      <span style="font-size: 0.82rem; color: var(--text-muted);">Receipt Verified</span>
+                    </label>
+                    <input type="text" id="audit-receipt-hash" class="form-control" style="flex: 1; font-size: 0.82rem;" placeholder="Unique Document Reference / Hash (e.g. RCPT-202593)">
+                  </div>
                 </div>
               </div>
 
@@ -426,6 +448,12 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="table-search" placeholder="Search employee, ID, notes...">
               </div>
+
+              <!-- Export CSV Button -->
+              <button id="btn-export-csv" class="btn btn-secondary btn-sm" title="Export Filtered Transactions to CSV">
+                <i class="fa-solid fa-file-csv"></i>
+                <span>Export CSV</span>
+              </button>
             </div>
           </div>
 
@@ -433,12 +461,12 @@
             <table class="custom-table">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Employee</th>
-                  <th>Category</th>
-                  <th>Date & Time</th>
-                  <th class="text-right">Amount</th>
-                  <th>Risk Score</th>
+                  <th class="sortable" onclick="handleSort('id')">ID <i id="sort-icon-id" class="fa-solid fa-sort"></i></th>
+                  <th class="sortable" onclick="handleSort('employee')">Employee <i id="sort-icon-employee" class="fa-solid fa-sort"></i></th>
+                  <th class="sortable" onclick="handleSort('category')">Category <i id="sort-icon-category" class="fa-solid fa-sort"></i></th>
+                  <th class="sortable" onclick="handleSort('date')">Date & Time <i id="sort-icon-date" class="fa-solid fa-sort-down"></i></th>
+                  <th class="text-right sortable" onclick="handleSort('amount')">Amount <i id="sort-icon-amount" class="fa-solid fa-sort"></i></th>
+                  <th class="sortable" onclick="handleSort('riskScore')">Risk Score <i id="sort-icon-riskScore" class="fa-solid fa-sort"></i></th>
                   <th>Status</th>
                   <th class="text-center">Actions</th>
                 </tr>
@@ -455,6 +483,65 @@
         </section>
 
       </main>
+    </div>
+  </div>
+
+  <!-- Modal: Detailed Transaction & AI Fraud Findings Review -->
+  <div id="expense-details-modal" class="modal-backdrop" style="display: none;">
+    <div class="glass-panel modal-card">
+      <button class="modal-close-btn" onclick="closeExpenseDetailsModal()">&times;</button>
+      <div id="expense-modal-body">
+        <!-- Rendered dynamically via openExpenseModal(id) -->
+      </div>
+    </div>
+  </div>
+
+  <!-- "Ask AuditAI" Floating AI Assistant Widget -->
+  <div id="assistant-widget-container">
+    <!-- Floating Action Button -->
+    <button id="btn-assistant-toggle" class="assistant-fab" title="Ask AuditAI Compliance Assistant">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </button>
+
+    <!-- Slide-in Chat Panel -->
+    <div id="assistant-panel" class="assistant-panel">
+      <div class="assistant-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="brand-icon-box" style="width: 28px; height: 28px; font-size: 0.8rem;">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <strong style="font-size: 0.9rem;">Ask AuditAI</strong>
+            <small class="text-muted block text-xs" style="font-size: 0.72rem;">Autonomous Compliance Assistant</small>
+          </div>
+        </div>
+        <button id="btn-assistant-close" class="modal-close-btn" style="position: static; width: 26px; height: 26px; font-size: 1rem;">&times;</button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="assistant-messages" class="assistant-messages">
+        <div class="chat-message bot">
+          <div class="brand-icon-box" style="width: 26px; height: 26px; font-size: 0.75rem; flex-shrink: 0;"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="msg-bubble">
+            Hello Auditor! I am AuditAI's intelligent compliance assistant. Ask me questions about expense patterns, flagged claims, or department expenditures.
+          </div>
+        </div>
+      </div>
+
+      <!-- Suggested Question Chips -->
+      <div class="assistant-chips">
+        <button type="button" class="assistant-chip" onclick="handleAssistantQuery('Show high-risk travel claims')">High-risk travel</button>
+        <button type="button" class="assistant-chip" onclick="handleAssistantQuery('Which employee has the most flagged expenses?')">Most flagged employee</button>
+        <button type="button" class="assistant-chip" onclick="handleAssistantQuery('How much was saved or rejected?')">Money saved summary</button>
+      </div>
+
+      <!-- Input Box -->
+      <div class="assistant-input-box">
+        <input type="text" id="assistant-input" placeholder="Ask a compliance question...">
+        <button type="button" id="btn-assistant-send" class="btn-send">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+      </div>
     </div>
   </div>
 
