@@ -105,3 +105,73 @@ def test_update_expense_status(client):
     verify_res = client.get(f"/api/expenses?search={exp_id}")
     updated = [e for e in verify_res.json() if e["id"] == exp_id][0]
     assert updated["status"] == "approved"
+
+
+def test_auth_login_demo_user(client):
+    response = client.post("/api/auth/login", json={"email": "auditor@auditai.com", "password": "Demo@123"})
+    assert response.status_code == 200
+    data = response.json()
+    assert "token" in data
+    assert data["user"]["role"] == "auditor"
+    assert data["user"]["name"] == "Alex Vance"
+
+
+def test_auth_login_dynamic_user(client):
+    response = client.post("/api/auth/login", json={"email": "custom.tester@auditai.com", "password": "Demo@123"})
+    assert response.status_code == 200
+    data = response.json()
+    assert "token" in data
+    assert data["user"]["email"] == "custom.tester@auditai.com"
+
+
+def test_auth_me_and_logout(client):
+    me_res = client.get("/api/auth/me")
+    assert me_res.status_code == 200
+    assert me_res.json()["email"] == "auditor@auditai.com"
+
+    logout_res = client.post("/api/auth/logout")
+    assert logout_res.status_code == 200
+    assert "Logged out" in logout_res.json()["message"]
+
+
+def test_pending_approvals(client):
+    res = client.get("/api/approvals/pending")
+    assert res.status_code == 200
+    assert isinstance(res.json(), list)
+
+
+def test_approve_and_reject_actions(client):
+    # Retrieve an expense
+    res = client.get("/api/expenses")
+    exp_id = res.json()[0]["id"]
+
+    # Test approve
+    app_res = client.post(f"/api/expenses/{exp_id}/approve", json={"comment": "Approved by unit test"})
+    assert app_res.status_code == 200
+    assert app_res.json()["status"] == "approved"
+
+    # Test reject
+    rej_res = client.post(f"/api/expenses/{exp_id}/reject", json={"comment": "Rejected by unit test"})
+    assert rej_res.status_code == 200
+    assert rej_res.json()["status"] == "rejected"
+
+
+def test_audit_logs(client):
+    res = client.get("/api/audit-logs")
+    assert res.status_code == 200
+    data = res.json()
+    assert "logs" in data
+    assert len(data["logs"]) > 0
+
+
+def test_ask_assistant(client):
+    res = client.post("/api/assistant", json={"question": "What is the highest expense?"})
+    assert res.status_code == 200
+    assert "answer" in res.json()
+    assert len(res.json()["answer"]) > 10
+
+
+def test_serve_login_html(client):
+    res = client.get("/login")
+    assert res.status_code == 200
+    assert "AuditAI Platform" in res.text or "Sign In" in res.text

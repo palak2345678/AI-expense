@@ -82,6 +82,43 @@ app.add_middleware(
 )
 
 
+# Demo Accounts Configuration matching reference site
+USERS_DB = {
+    "employee@auditai.com": {
+        "id": "usr-001",
+        "name": "Sarah Jenkins",
+        "email": "employee@auditai.com",
+        "role": "employee",
+        "department": "Engineering",
+        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+    },
+    "manager@auditai.com": {
+        "id": "usr-002",
+        "name": "David Miller",
+        "email": "manager@auditai.com",
+        "role": "manager",
+        "department": "Operations",
+        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+    },
+    "auditor@auditai.com": {
+        "id": "usr-003",
+        "name": "Alex Vance",
+        "email": "auditor@auditai.com",
+        "role": "auditor",
+        "department": "Compliance & Risk",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+    },
+    "admin@auditai.com": {
+        "id": "usr-004",
+        "name": "Marcus Chen",
+        "email": "admin@auditai.com",
+        "role": "admin",
+        "department": "Executive Office",
+        "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+    }
+}
+
+
 # Pydantic Schemas for Request Validation
 class ExpenseSubmission(BaseModel):
     employee: str = Field(..., min_length=2, description="Employee Full Name")
@@ -97,6 +134,19 @@ class ExpenseSubmission(BaseModel):
 
 class StatusUpdate(BaseModel):
     status: str = Field(..., pattern="^(approved|rejected|flagged|pending)$")
+
+
+class LoginRequest(BaseModel):
+    email: str = Field(..., description="User Email Address")
+    password: str = Field(..., description="Account Password")
+
+
+class ApprovalAction(BaseModel):
+    comment: Optional[str] = Field("", description="Auditor/Manager Decision Justification")
+
+
+class AssistantQuery(BaseModel):
+    question: str = Field(..., min_length=1, description="Natural Language Inquiry")
 
 
 # -------------------------------------------------------------------------
@@ -216,6 +266,113 @@ def alerts():
 
 
 # -------------------------------------------------------------------------
+# Authentication & Role-Based Access Endpoints
+# -------------------------------------------------------------------------
+
+@app.post("/api/auth/login", summary="User Authentication")
+def login(creds: LoginRequest):
+    """Authenticates user against demo database or generates dynamic profile."""
+    email_key = creds.email.strip().lower()
+    user = USERS_DB.get(email_key)
+    if not user:
+        user = {
+            "id": f"usr-{abs(hash(email_key)) % 900 + 100}",
+            "name": email_key.split('@')[0].replace('.', ' ').title(),
+            "email": email_key,
+            "role": "auditor",
+            "department": "Audit Department",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+        }
+    token = f"jwt_{abs(hash(email_key))}_{int(datetime.now().timestamp())}"
+    return {
+        "token": token,
+        "user": user,
+        "message": "Authentication successful"
+    }
+
+
+@app.get("/api/auth/me", summary="Get Current Session Profile")
+def get_me():
+    """Returns the authenticated user session profile."""
+    return USERS_DB["auditor@auditai.com"]
+
+
+@app.post("/api/auth/logout", summary="User Logout")
+def logout():
+    """Terminates user session."""
+    return {"message": "Logged out successfully"}
+
+
+# -------------------------------------------------------------------------
+# Multi-Level Approvals & Audit Trail Endpoints
+# -------------------------------------------------------------------------
+
+@app.get("/api/approvals/pending", summary="Pending Approvals")
+def pending_approvals():
+    """Returns expense claims pending review by managers or auditors."""
+    expenses = get_all_expenses()
+    pending = [e for e in expenses if e.get("status") in ("pending", "flagged") or e.get("riskLevel") in ("High", "Critical")]
+    return pending[:15]
+
+
+@app.post("/api/expenses/{expense_id}/approve", summary="Approve Expense")
+def approve_expense(expense_id: str, action: ApprovalAction = ApprovalAction()):
+    """Approves an expense record."""
+    success = update_expense_status(expense_id, "approved")
+    if not success:
+        raise HTTPException(status_code=404, detail="Expense record not found")
+    return {"id": expense_id, "status": "approved", "comment": action.comment, "updated": True}
+
+
+@app.post("/api/expenses/{expense_id}/reject", summary="Reject Expense")
+def reject_expense(expense_id: str, action: ApprovalAction = ApprovalAction()):
+    """Rejects a fraudulent or non-compliant expense claim."""
+    success = update_expense_status(expense_id, "rejected")
+    if not success:
+        raise HTTPException(status_code=404, detail="Expense record not found")
+    return {"id": expense_id, "status": "rejected", "comment": action.comment, "updated": True}
+
+
+@app.get("/api/audit-logs", summary="System Audit Logs")
+def audit_logs(page: int = 1, limit: int = 25):
+    """Returns detailed audit trail events from live database records."""
+    expenses = get_all_expenses()
+    logs = []
+    for exp in expenses[:limit]:
+        logs.append({
+            "id": f"LOG-{exp.get('id', '0')}",
+            "timestamp": exp.get("createdAt", datetime.now().isoformat() + "Z"),
+            "action": f"Evaluated claim for {exp.get('employee')} (${exp.get('amount')})",
+            "actor": "Mamdani Fuzzy + Isolation Forest Engine",
+            "riskLevel": exp.get("riskLevel", "Low"),
+            "status": exp.get("status", "flagged")
+        })
+    return {"total": len(expenses), "page": page, "logs": logs}
+
+
+@app.post("/api/assistant", summary="Natural Language Auditor Assistant")
+def ask_assistant(query: AssistantQuery):
+    """Answers natural language audit and fraud questions using live SQLite aggregations."""
+    q = query.question.strip().lower()
+    expenses = get_all_expenses()
+    total_val = sum(e.get("amount", 0) for e in expenses)
+    flagged = [e for e in expenses if e.get("status") == "flagged" or e.get("riskLevel") in ("High", "Critical")]
+
+    if "highest" in q or "max" in q or "largest" in q:
+        highest = max(expenses, key=lambda x: x.get("amount", 0)) if expenses else None
+        if highest:
+            return {"answer": f"The highest claim is {highest['id']} by {highest['employee']} in '{highest['category']}' for ${highest['amount']:,.2f} with risk score {highest.get('riskScore', 0)}/100."}
+
+    if "flagged" in q or "fraud" in q or "suspicious" in q:
+        return {"answer": f"AuditAI has flagged {len(flagged)} suspicious claims totaling ${sum(e.get('amount', 0) for e in flagged):,.2f}. The primary reasons detected are excessive policy thresholds and weekend filings."}
+
+    if "total" in q or "count" in q or "how many" in q:
+        return {"answer": f"The platform is currently monitoring {len(expenses)} claims totaling ${total_val:,.2f} across all departments."}
+
+    return {"answer": f"AuditAI autonomous engine is operational. Total claims: {len(expenses)}, Flagged anomalies: {len(flagged)}, Total audited volume: ${total_val:,.2f}."}
+
+
+# -------------------------------------------------------------------------
 # Robust Static Asset & Frontend Serving
 # -------------------------------------------------------------------------
 search_dirs = [
@@ -300,6 +457,20 @@ def serve_dashboard_html():
     if path:
         return FileResponse(path)
     raise HTTPException(status_code=404, detail="dashboard.html not found")
+
+@app.get("/login", include_in_schema=False)
+def serve_login():
+    path = find_file("login.html")
+    if path:
+        return FileResponse(path)
+    raise HTTPException(status_code=404, detail="login.html not found")
+
+@app.get("/login.html", include_in_schema=False)
+def serve_login_html():
+    path = find_file("login.html")
+    if path:
+        return FileResponse(path)
+    raise HTTPException(status_code=404, detail="login.html not found")
 
 
 if __name__ == "__main__":

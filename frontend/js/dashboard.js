@@ -23,6 +23,7 @@ const dashboardState = {
  * Initialize Dashboard
  */
 document.addEventListener('DOMContentLoaded', async () => {
+  setupUserSession();
   setupSidebar();
   setupFilterListeners();
   setupExportButton();
@@ -31,6 +32,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadDashboardData();
   await checkSystemHealth();
 });
+
+/**
+ * Setup User Session & Profile UI
+ */
+function setupUserSession() {
+  const user = API.getCurrentUser();
+  const nameEl = document.getElementById('user-name');
+  const roleEl = document.getElementById('user-role');
+  const avatarEl = document.getElementById('user-avatar');
+  const logoutBtn = document.getElementById('btn-logout');
+
+  if (user) {
+    if (nameEl) nameEl.textContent = user.name || 'User';
+    if (roleEl) roleEl.textContent = `${(user.role || 'Auditor').toUpperCase()}${user.department ? ` • ${user.department}` : ''}`;
+    if (avatarEl) {
+      if (user.avatar) {
+        avatarEl.innerHTML = `<img src="${user.avatar}" alt="${user.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+      } else {
+        const initials = (user.name || 'AI').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        avatarEl.textContent = initials;
+      }
+    }
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (confirm('Are you sure you want to sign out?')) {
+        API.logout();
+      }
+    });
+  }
+}
 
 /**
  * Check Backend Health

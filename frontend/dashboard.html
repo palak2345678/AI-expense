@@ -62,6 +62,10 @@
           <i class="fa-solid fa-table-list"></i>
           <span>Transactions</span>
         </a>
+        <a href="login.html" class="sidebar-link">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <span>Switch Account</span>
+        </a>
         <a href="index.html" class="sidebar-link">
           <i class="fa-solid fa-house"></i>
           <span>Landing Page</span>
@@ -102,12 +106,15 @@
             <span>New Audit</span>
           </a>
 
-          <div class="user-profile-badge">
-            <div class="avatar">AI</div>
+          <div class="user-profile-badge" id="user-profile-badge" style="display: flex; align-items: center; gap: 8px;">
+            <div class="avatar" id="user-avatar" style="overflow: hidden; display: flex; align-items: center; justify-content: center; font-weight: 700;">AI</div>
             <div class="profile-info text-sm hidden-sm" style="font-size: 0.85rem;">
-              <strong class="block">Lead Auditor</strong>
-              <small class="text-muted">Compliance Dept</small>
+              <strong class="block" id="user-name">Alex Vance</strong>
+              <small class="text-muted" id="user-role">Auditor</small>
             </div>
+            <button id="btn-logout" class="btn btn-secondary btn-sm" title="Sign Out" style="margin-left: 6px; padding: 6px 10px; font-size: 0.8rem;">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
           </div>
         </div>
       </header>
