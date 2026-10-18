@@ -6,6 +6,7 @@
    ========================================================================== */
 
 :root {
+  color-scheme: dark;
   --bg-main: #090d16;
   --bg-surface: #0f172a;
   --bg-card: rgba(30, 41, 59, 0.7);
@@ -1810,4 +1811,53 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+/* ==========================================================================
+   SELECT & DROPDOWN ACCESSIBILITY (DARK THEME)
+   Fixes Windows/Chromium white option popup bug
+   ========================================================================== */
+
+:root, select, option {
+  color-scheme: dark !important;
+}
+
+select.form-control,
+select.filter-select,
+select {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 16px !important;
+  padding-right: 40px !important;
+}
+
+select.form-control:focus,
+select.filter-select:focus,
+select:focus {
+  background-color: #1e293b !important;
+  border-color: #3b82f6 !important;
+  color: #ffffff !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+}
+
+select option {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  padding: 10px 14px !important;
+  font-size: 0.9rem !important;
+}
+
+select option:checked,
+select option:hover,
+select option:focus {
+  background-color: #1e3a8a !important;
+  color: #60a5fa !important;
 }
